@@ -1,2 +1,4 @@
 .ipynb_checkpoints/
 dl.cfg
+data/
+output/
