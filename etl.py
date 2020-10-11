@@ -3,7 +3,7 @@ from datetime import datetime
 import os
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import udf, col
-from pyspark.sql.functions import year, month, dayofmonth, hour, weekofyear, date_format, dayofweek
+from pyspark.sql.functions import year, month, dayofmonth, hour, weekofyear, date_format, dayofweek, monotonically_increasing_id
 from pyspark.sql.types import TimestampType
 
 
@@ -123,7 +123,8 @@ def process_log_data(spark, input_data, output_data):
                 "artist_id",
                 col("sessionId").alias("session_id"),
                 col("artist_location").alias("location"),
-                col("userAgent").alias("user_agent"))
+                col("userAgent").alias("user_agent")) \
+        .withColumn('songplay_id', monotonically_increasing_id())
 
     # write songplays table to parquet files partitioned by year and month
     songplays_table.write.parquet(os.path.join(output_data, "songplays"), "overwrite")
