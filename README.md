@@ -32,3 +32,51 @@ log_data/2018/11/2018-11-13-events.json
 And below is an example of what the data in a log file, `2018-11-12-events.json`, looks like.
 
 ![log data sample screenshot](./docs/imgs/log-data.png)
+
+## Data Lake Schema
+
+This ETL process implements a star schema where ```songplays``` is the fact table and ```time```, ```artists```, ```songs```, and ```users``` are the dimensional tables.
+
+![Data Lake schema](./docs/imgs/schema.png)
+
+### Fact tables
+
+* ```songplays```. Records in log data associated with song plays.
+    * ```songplay_id```
+    * ```start_time```
+    * ```user_id```
+    * ```level```
+    * ```song_id```
+    * ```artist_id```
+    * ```session_id```
+    * ```location```
+    * ```user_agent```
+
+### Dimension tables
+
+* ```users```. Users in the app.
+    * ```user_id```
+    * ```first_name```
+    * ```last_name```
+    * ```gender```
+    * ```level```
+* ```time```. Timestamps of records in ```songplays``` broken down into specific units.
+    * ```start_time```
+    * ```hour```
+    * ```day```
+    * ```week```
+    * ```month```
+    * ```year```
+    * ```weekday```
+* ```artists```. Artists in music database.
+    * ```artist_id```
+    * ```name```
+    * ```location```
+    * ```latitude```
+    * ```longitude```
+* ```songs```. Songs in music database.
+    * ```song_id```
+    * ```title```
+    * ```artist_id```
+    * ```year```
+    * ```duration```
