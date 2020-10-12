@@ -108,7 +108,7 @@ def process_log_data(spark, input_data, output_data):
     )
     
     # write time table to parquet files partitioned by year and month
-    time_table.write.parquet(os.path.join(output_data, "time"), "overwrite")
+    time_table.write.partitionBy("year", "month").parquet(os.path.join(output_data, "time"), "overwrite")
 
     # read in song data to use for songplays table
     song_df = spark.sql("SELECT * FROM song_df")
@@ -127,7 +127,7 @@ def process_log_data(spark, input_data, output_data):
         .withColumn('songplay_id', monotonically_increasing_id())
 
     # write songplays table to parquet files partitioned by year and month
-    songplays_table.write.parquet(os.path.join(output_data, "songplays"), "overwrite")
+    songplays_table.write.partitionBy("year", "month").parquet(os.path.join(output_data, "songplays"), "overwrite")
 
 
 def main():
