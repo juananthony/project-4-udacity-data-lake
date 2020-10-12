@@ -35,7 +35,7 @@ def process_song_data(spark, input_data, output_data):
         - output_data : path to persist the output tables (songs and artists)
     """
     # get filepath to song data file
-    song_data = os.path.join(input_data, config["AWS"]["SONG_DATA_PATH"])
+    song_data = os.path.join(input_data, "song_data/*/*/*/*.json")
     
     # read song data file
     df = spark.read.json(song_data).dropDuplicates().cache()
@@ -69,7 +69,7 @@ def process_log_data(spark, input_data, output_data):
         - output_data : path to persist the output tables (songs and artists)
     """
     # get filepath to log data file
-    log_data = os.path.join(input_data, config["AWS"]["LOG_DATA_PATH"])
+    log_data = os.path.join(input_data, "log_data/*.json")
 
     # read log data file
     df = spark.read.json(log_data)
