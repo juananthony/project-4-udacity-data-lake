@@ -80,3 +80,33 @@ This ETL process implements a star schema where ```songplays``` is the fact tabl
     * ```artist_id```
     * ```year```
     * ```duration```
+
+## Project Structure
+
+This project is structured into diferent folder and files:
+* ```data/```. In this folder, a few data is persisted to test the etl process.
+* ```docs/imgs```. Here is where all images in this *README* are stored.
+* ```dl.cfg```. **Not included** but required. In next section, the process to create it is detailed.
+* ```README.md```. Markdown file that contains documentation about the project.
+* ```etl.py```. Python file with the ETL process. This code needs to be executed with python >3.6.
+* ```input_eda.ipynb```. Jupyter notebook that helps to analyse the input data.
+* ```output_eda.ipynb```. Jupyter notebook that helps to analyse the output data.
+
+
+## Execute ETL process
+
+This ETL is needs to be run in Amazon Web Services using [AWS EMR](https://aws.amazon.com/emr) and [S3 buckets](https://aws.amazon.com/s3/). Because of that this process requires a config file called ```dl.cfg```. This file must contain both data paths (input ```INPUT_DATA``` and output ```OUTPUT_DATA```) and the user credentials to connect to AWS (```ACCESS_KEY_ID``` and ```SECRET_ACCESS_KEY```). The structure of the file should be like this:
+
+```dl.cfg
+[AWS]
+ACCESS_KEY_ID         = <INSERT_HERE_AWS_ACCESS_KEY_ID>
+SECRET_ACCESS_KEY     = <INSERT_HERE_SECRET_ACCESS_KEY>
+INPUT_DATA            = <S3_BUCKET_PATH_FOR_INPUT_DATA>
+OUTPUT_DATA           = <S3_BUCKET_PATH_FOR_OUTPUT_DATA>
+```
+
+Once the config file is filled, the process must be executed usign **python >3.6**:
+
+```
+python etl.py
+```
